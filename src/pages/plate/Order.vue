@@ -203,6 +203,5 @@ export default {
 </script>
 <style lang="less">
     #chart {
-    margin: 35px auto;
     }
 </style>
