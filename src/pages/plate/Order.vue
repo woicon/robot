@@ -105,9 +105,12 @@
             </el-table-column>
         </el-table>
         <h4 class="h2">24小时订单完成统计</h4>
+        <div id="chart" style="width:100%">
+        </div>
     </div>
 </template>
 <script>
+import ApexCharts from "apexcharts";
 export default {
        data() {
            return {
@@ -159,9 +162,47 @@ export default {
                ]
                }
            }
+       },
+       mounted(){
+           let dates = [],
+                series = []
+           for(let i=0;i<=24;i++){
+               dates.push(i)
+               series.push(RndNum(3))
+           }
+            function RndNum(n){
+                var rnd="";
+                for(var i=0;i<n;i++)
+                    rnd+=Math.floor(Math.random()*10);
+                return rnd;
+            }
+           var options = {
+            chart: {
+                type: 'bar',
+                height:'300',
+                width: '100%',
+                
+            },
+            theme: {
+                palette: 'palette1'
+            },
+            series: [{
+                name: '订单数',
+                data:series
+            }],
+            xaxis: {
+                categories:dates
+            }
+            }
+
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+            chart.render();
        }
 }
 </script>
 <style lang="less">
-    
+    #chart {
+    margin: 35px auto;
+    }
 </style>
